@@ -61,6 +61,7 @@ public class MailServiceProvider {
 	}
 	
 
+	@RabbitListener(queues = "rmq.rube.queue")
 	public void recievedMessage(MailObject user) {
 	
 		sendEmail(user.getEmail(),user.getObject(),user.getMessage());

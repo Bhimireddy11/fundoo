@@ -49,12 +49,20 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
 
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+				<!-- https://mvnrepository.com/artifact/org.superbiz/injection-of-entitymanager -->
+<dependency>
+    <groupId>org.superbiz</groupId>
+    <artifactId>injection-of-entitymanager</artifactId>
+    <version>7.0.7-TT.4</version>
+</dependency>
+	
 
 
 		<dependency>
@@ -67,6 +75,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework.amqp/spring-rabbit-test -->
+<dependency>
+    <groupId>org.springframework.amqp</groupId>
+    <artifactId>spring-rabbit-test</artifactId>
+    <version>2.0.2.RELEASE</version>
+    <scope>test</scope>
+</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
