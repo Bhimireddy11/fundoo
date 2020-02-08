@@ -57,11 +57,13 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 				<!-- https://mvnrepository.com/artifact/org.superbiz/injection-of-entitymanager -->
+<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 <dependency>
-    <groupId>org.superbiz</groupId>
-    <artifactId>injection-of-entitymanager</artifactId>
-    <version>7.0.7-TT.4</version>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-entitymanager</artifactId>
+    
 </dependency>
+
 	
 
 
@@ -79,7 +81,7 @@
 <dependency>
     <groupId>org.springframework.amqp</groupId>
     <artifactId>spring-rabbit-test</artifactId>
-    <version>2.0.2.RELEASE</version>
+
     <scope>test</scope>
 </dependency>
 		
@@ -118,7 +120,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.16</version>
+		
 			<scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
@@ -150,7 +152,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>3.0.5.RELEASE</version>
+			
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.jms/jms -->
@@ -164,7 +166,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
-			<version>3.1.0.RELEASE</version>
+			
 		</dependency>
 
 

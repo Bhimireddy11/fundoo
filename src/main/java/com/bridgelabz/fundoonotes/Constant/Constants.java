@@ -1,0 +1,6 @@
+package com.bridgelabz.fundoonotes.Constant;
+
+public class Constants {
+	String index = "springboot";
+	String type = "note_details";
+}
