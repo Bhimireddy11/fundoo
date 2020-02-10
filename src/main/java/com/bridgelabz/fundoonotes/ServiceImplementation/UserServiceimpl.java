@@ -93,8 +93,6 @@ public  class UserServiceimpl  implements UserService  {
 				mailObject.setEmail(userDto.getEmail());
 				mailObject.setMessage(response);
 				mailObject.setSubject("verification");
-
-				
 				return userDetails;
 			} 
 
@@ -160,7 +158,7 @@ public  class UserServiceimpl  implements UserService  {
 
 					return userInfo.get();
 				} else {
-					String response = mailresponse.formMessage("http://localhost:8081/users/verify",
+					String response = mailresponse.formMessage("http://localhost:8080/users/verify",
 							generate.jwtToken(userInfo.get().getUserId()));
 
 					log.info("Verification Link :" + response);

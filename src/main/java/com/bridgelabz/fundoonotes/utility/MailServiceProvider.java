@@ -10,13 +10,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.bridgelabz.fundoonotes.Response.MailObject;
+import org.springframework.stereotype.Component;
+
+import lombok.Value;
 
 
-
+@Component
 public class MailServiceProvider {
-	
-
 	
 	private String pswd;
 	public static void sendEmail(String toEmail, String subject, String body) {
@@ -48,6 +48,7 @@ public class MailServiceProvider {
 			message.setSubject(subject);
 			message.setText(body);
 			Transport.send(message);
+			System.out.println("mail");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("exception occured while sending mail");
@@ -56,10 +57,5 @@ public class MailServiceProvider {
 	}
 	
 
-	//@RabbitListener(queues = "rmq.rube.queue")
-	public void recievedMessage(MailObject user) {
 	
-		sendEmail(user.getEmail(),user.getObject(),user.getMessage());
-		System.out.println("Recieved Message From RabbitMQ: " + user);
 	}
-}

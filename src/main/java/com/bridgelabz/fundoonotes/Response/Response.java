@@ -1,16 +1,5 @@
 
-
-
-
-
-
-
-
-
-
 package com.bridgelabz.fundoonotes.Response;
-
-
 
 
 public class Response {
