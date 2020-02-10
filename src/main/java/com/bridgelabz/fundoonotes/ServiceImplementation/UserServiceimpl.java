@@ -31,7 +31,7 @@ import com.bridgelabz.fundoonotes.customexceptions.UserNotVerifiedException;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 import com.bridgelabz.fundoonotes.utility.MailServiceProvider;
 import com.bridgelabz.fundoonotes.utility.Util;
-
+;
 
 
 
@@ -75,16 +75,21 @@ public  class UserServiceimpl  implements UserService  {
 				throw new EmailAlreadyExistException(userDto.getEmail()+" Already Exist");
 			}
 			else{
-				userDetails = modelMapper.map(userDto, UserDemo.class);
+				userDetails.setEmail(userDto.getEmail());
+				userDetails.setFirstName(userDto.getFirstName());
+				userDetails.setLastName(userDto.getLastName());
+				userDetails.setPhone(Long.parseLong(userDto.getPhone()));
 				userDetails.setCreatedAt(Util.dateTime());
+				userDetails.setVerified(false);
 				String password = encryption.encode(userDto.getPswd());
 				userDetails.setPswd(password);
 
 				userRepository.save(userDetails);
+				System.out.println(userDetails);
 
 				String response = mailresponse.formMessage("http://localhost:8081/users/verify/",
 						generate.jwtToken(userDetails.getUserId()));
-				log.info("Response URL :" + response);
+				//log.info("Response URL :" + response);
 				mailObject.setEmail(userDto.getEmail());
 				mailObject.setMessage(response);
 				mailObject.setSubject("verification");

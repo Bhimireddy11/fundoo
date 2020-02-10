@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
 @Entity
 @Data
 @Table(name="userregister")
@@ -39,6 +38,8 @@ public class UserDemo {
 	public String getCreatedAt() {
 		return createdAt;
 	}
+
+	
 
 	public void setCreatedAt(String string) {
 		this.createdAt = string;
@@ -100,6 +101,11 @@ public class UserDemo {
 		this.isVerified = isVerified;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "UserDemo [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone
+				+ ", pswd=" + pswd + ", email=" + email + ", isVerified=" + isVerified + ", createdAt=" + createdAt
+				+ "]";
+	}
 
 }
