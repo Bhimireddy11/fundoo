@@ -33,10 +33,12 @@ public class MailObject implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public void setSubject(String string) {
-		
-		
+	public String getSubject() {
+		return subject;
 	}
-	 
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	
 
 }

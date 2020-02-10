@@ -17,7 +17,6 @@ import lombok.Value;
 
 @Component
 public class MailServiceProvider {
-	
 	private String pswd;
 	public static void sendEmail(String toEmail, String subject, String body) {
 
@@ -48,7 +47,7 @@ public class MailServiceProvider {
 			message.setSubject(subject);
 			message.setText(body);
 			Transport.send(message);
-			System.out.println("mail");
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("exception occured while sending mail");

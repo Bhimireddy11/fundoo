@@ -14,15 +14,15 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 	@Component
 	public class JwtGenerator {
 
-		private static final String SECRET = "112223333";
+		private static final String SECRET = "9886002418";
 		
-		public String jwtToken(long l) throws UnsupportedEncodingException {
+		public String jwtToken(long l) {
 			String token = null;
 			try {
-				token = JWT.create().withClaim("id", l).sign(Algorithm.HMAC512(SECRET));
+				token = JWT.create().withClaim("id", 1).sign(Algorithm.HMAC512(SECRET));
 			} catch (IllegalArgumentException | JWTCreationException e) {
 
-				e.printStackTrace();
+				e.printStackTrace(); 
 			}
 			return token;
 		}
@@ -30,9 +30,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 		/*
 		 * method to parse the jwt token into integer
 		 * */
-		public int parseJWT(String jwt) throws UnsupportedEncodingException{
+		public int parseJWT(String jwt) {
 
-			Integer userId = 0;
+			Integer userId =(Integer) 0;
 			if (jwt != null) {
 				try {
 					userId = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(jwt).getClaim("id").asInt();

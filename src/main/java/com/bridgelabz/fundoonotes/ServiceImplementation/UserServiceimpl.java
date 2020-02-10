@@ -93,6 +93,7 @@ public  class UserServiceimpl  implements UserService  {
 				mailObject.setEmail(userDto.getEmail());
 				mailObject.setMessage(response);
 				mailObject.setSubject("verification");
+				MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
 				return userDetails;
 			} 
 
