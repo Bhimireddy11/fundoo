@@ -1,12 +1,12 @@
 package com.bridgelabz.fundoonotes.customexceptions;
 
-public class NoteIdNotFoundExceprion  extends RuntimeException{
+public class NoteIdNotFoundException  extends RuntimeException{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	 public NoteIdNotFoundExceprion(String message) {
+	 public NoteIdNotFoundException(String message) {
 	super(message);
 
 }

@@ -12,6 +12,9 @@ public class ReminderDto {
 	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
+
+	}
+
 	
 
-}
+

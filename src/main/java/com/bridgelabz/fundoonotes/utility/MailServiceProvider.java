@@ -42,7 +42,7 @@ public class MailServiceProvider {
 	private static void send(Session session, String fromEmail, String toEmail, String subject, String body) {
 		try {
 			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(fromEmail, "BridgeLabz"));
+			message.setFrom(new InternetAddress(fromEmail, "raji"));
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			message.setSubject(subject);
 			message.setText(body);
