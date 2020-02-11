@@ -1,6 +1,6 @@
 package com.bridgelabz.fundoonotes.utility;
 
-import java.io.UnsupportedEncodingException;
+
 
 
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 		 * */
 		public int parseJWT(String jwt) {
 
-			Integer userId =(Integer) 0;
+			Integer userId = 0;
 			if (jwt != null) {
 				try {
 					userId = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(jwt).getClaim("id").asInt();
