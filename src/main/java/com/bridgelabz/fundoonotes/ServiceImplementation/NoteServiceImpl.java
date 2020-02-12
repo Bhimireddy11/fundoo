@@ -58,7 +58,7 @@ public class NoteServiceImpl implements NoteService {
 
 		long userId = getRedisCacheId(token);
 		// long id = jwtGenerator.parseJWT(token);
-		log.info("Id is :" + userId + " ,Description :" + noteDto.getDescription());
+	//	log.info("Id is :" + userId + " ,Description :" + noteDto.getDescription());
 
 		Optional<UserDemo> user = userRepository.findById(userId);
 		if (user.isPresent()) {

@@ -61,10 +61,6 @@ public  class UserServiceimpl  implements UserService  {
 		private BCryptPasswordEncoder encryption;
 
 		
-		private Log log;
-
-		
-		
 		@Transactional
 		@Override
 		public UserDemo registration(UserDto userDto) throws Exception  {
@@ -87,7 +83,7 @@ public  class UserServiceimpl  implements UserService  {
 				userRepository.save(userDetails);
 				System.out.println(userDetails);
 
-				String response = mailresponse.formMessage("http://localhost:8081/users/verify/",
+				String response = mailresponse.formMessage("http://localhost:8080/users/verify/",
 						generate.jwtToken(userDetails.getUserId()));
 				//log.info("Response URL :" + response);
 				mailObject.setEmail(userDto.getEmail());
@@ -151,18 +147,18 @@ public  class UserServiceimpl  implements UserService  {
 			Optional<UserDemo> userInfo = userRepository.findOneByEmail(loginDetails.getEmail());
 
 			if (userInfo.isPresent()) {
-				log.info("User Information " + userInfo);
+			//	log.info("User Information " + userInfo);
 				if ((userInfo.get().isVerified())
 						&& encryption.matches(loginDetails.getPassword(), userInfo.get().getPswd())) {
 
-					log.info("Generated Token :" + generate.jwtToken(userInfo.get().getUserId()));
+				//	log.info("Generated Token :" + generate.jwtToken(userInfo.get().getUserId()));
 
 					return userInfo.get();
 				} else {
 					String response = mailresponse.formMessage("http://localhost:8080/users/verify",
 							generate.jwtToken(userInfo.get().getUserId()));
 
-					log.info("Verification Link :" + response);
+				//	log.info("Verification Link :" + response);
 
 					MailServiceProvider.sendEmail(loginDetails.getEmail(), "verification", response);
 
@@ -177,7 +173,7 @@ public  class UserServiceimpl  implements UserService  {
 		@Transactional
 		@Override
 		public boolean verify(String token) throws Throwable  {
-			log.info("id in verification" + (long) generate.parseJWT(token));
+	//		log.info("id in verification" + (long) generate.parseJWT(token));
 			Long id = (long) generate.parseJWT(token);
 			Optional<UserDemo> userInfo = userRepository.findById(id);
 			if (userInfo.isPresent()) {
@@ -205,7 +201,7 @@ public  class UserServiceimpl  implements UserService  {
 		@Override
 		public UserDemo updatePassword(String token, UpdatePassword pswd) throws Exception {
 			if (pswd.getNewpassword().equals(pswd.getChnpassword())) {
-				log.info("Getting id from token :" + generate.parseJWT(token));
+			//	log.info("Getting id from token :" + generate.parseJWT(token));
 				long id = generate.parseJWT(token);
 				Optional<UserDemo> isUserIdAvailable = userRepository.findById(id);
 				if (isUserIdAvailable.isPresent()) {

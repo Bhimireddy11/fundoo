@@ -1,13 +1,8 @@
 package com.bridgelabz.fundoonotes.Controller;
 
 
-
-
 import java.util.List;
-
-
 import javax.validation.Valid;
-
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -21,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.bridgelabz.fundoonotes.DTO.LoginDetails;
 import com.bridgelabz.fundoonotes.DTO.UpdatePassword;
 import com.bridgelabz.fundoonotes.DTO.UserDto;
@@ -31,15 +25,10 @@ import com.bridgelabz.fundoonotes.Response.Response;
 import com.bridgelabz.fundoonotes.Response.UserAuntication;
 import com.bridgelabz.fundoonotes.Sevice.UserService;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-
-
-
-
 @RestController
 @Slf4j
 public class UserController {

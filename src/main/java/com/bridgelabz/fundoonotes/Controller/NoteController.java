@@ -35,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 public class NoteController {
 	
 
-	private Log log;
 		@Autowired
 		NoteService noteService;
 
@@ -79,7 +78,7 @@ public class NoteController {
 		@GetMapping("notes")
 		@ApiOperation(value = "Api to get notes list", response = Response.class)
 		public ResponseEntity<Response> notes(@RequestHeader("token") String token) {
-			log.info("GET TOKEN :" + token);
+			//log.info("GET TOKEN :" + token);
 			List<Note> notes = noteService.getAllNotes(token);
 			return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes are", 200, notes));
 		}
