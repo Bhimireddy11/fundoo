@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoonotes.DTO.NoteDto;
 import com.bridgelabz.fundoonotes.DTO.ReminderDto;
+import com.bridgelabz.fundoonotes.Model.Label;
 import com.bridgelabz.fundoonotes.Model.Note;
 import com.bridgelabz.fundoonotes.Response.Response;
 import com.bridgelabz.fundoonotes.Sevice.NoteService;

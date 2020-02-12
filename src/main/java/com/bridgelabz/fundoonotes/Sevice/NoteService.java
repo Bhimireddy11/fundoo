@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.bridgelabz.fundoonotes.DTO.NoteDto;
 import com.bridgelabz.fundoonotes.DTO.ReminderDto;
+import com.bridgelabz.fundoonotes.Model.Label;
 import com.bridgelabz.fundoonotes.Model.Note;
 import com.bridgelabz.fundoonotes.customexceptions.NoteIdNotFoundException;
 

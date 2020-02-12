@@ -2,10 +2,13 @@ package com.bridgelabz.fundoonotes.ServiceImplementation;
 
 
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
+import org.hibernate.annotations.common.util.impl.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.DTO.NoteDto;
 import com.bridgelabz.fundoonotes.DTO.ReminderDto;
+import com.bridgelabz.fundoonotes.Model.Label;
 import com.bridgelabz.fundoonotes.Model.Note;
 import com.bridgelabz.fundoonotes.Model.UserDemo;
 import com.bridgelabz.fundoonotes.Repository.NoteRepository;
@@ -23,12 +27,13 @@ import com.bridgelabz.fundoonotes.Sevice.NoteService;
 import com.bridgelabz.fundoonotes.customexceptions.NoteIdNotFoundException;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 
 @Service
 @Slf4j
-public class NoteServiceImplsss implements NoteService {
+public class NoteServiceImpl implements NoteService {
 
 	@Autowired
 	JwtGenerator jwtGenerator;
@@ -66,18 +71,9 @@ public class NoteServiceImplsss implements NoteService {
 			note.setColour("blue");
 
 			Note noteInfo = noteRepository.save(note);
-			
-		Note noteInfo = noteRepository.save(note);
-		
-//		  if(noteInfo!=null) { String result = elasticSearchService.createNote(note);
-//		  log.info("Elastic Search :"+result); }
-
-	}
-	/*
-	 * else { throw new
-	 * NoteCreationException("Something went wrong Note is not created"); }
-	 */
-	return note;
+		}
+		return note;
+	
 }
 
 @Override
@@ -206,12 +202,13 @@ public List<Note> searchByTitle(String title) {
  * Add data to the redis cache
  */
 private long getRedisCacheId(String token) {
-	log.info("TOKEN :"+token);
+	
+	//log.info("TOKEN :"+token);
 	String[] splitedToken = token.split("\\.");
 	String redisTokenKey = splitedToken[1] + splitedToken[2];
 	if (redisTemplate.opsForValue().get(redisTokenKey) == null) {
 		long idForRedis = jwtGenerator.parseJWT(token);
-		log.info("idForRedis is :" + idForRedis);
+	//	log.info("idForRedis is :" + idForRedis);
 		redisTemplate.opsForValue().set(redisTokenKey, idForRedis, 3 * 60, TimeUnit.SECONDS);
 	}
 	return (Long) redisTemplate.opsForValue().get(redisTokenKey);

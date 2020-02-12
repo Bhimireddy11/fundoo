@@ -13,8 +13,12 @@ public class ReminderDto {
 		this.time = time;
 	}
 
+	public String getDatetime() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+}
 	
 
 
