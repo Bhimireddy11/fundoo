@@ -94,6 +94,7 @@ public boolean deleteOneNote(long id, String token) throws NoteIdNotFoundExcepti
 	return false;
 }
 
+
 @Override
 public boolean isArchived(long noteId, String token) {
 	// long userId = jwtGenerator.parseJWT(token);
@@ -110,7 +111,23 @@ public boolean isArchived(long noteId, String token) {
 	}
 	return false;
 }
-
+/*@Override
+public boolean isExist(long noteId, String token) {
+	// long userId = jwtGenerator.parseJWT(token);
+	long userId = getRedisCacheId(token);
+	Optional<UserDemo> user = userRepository.findById(userId);
+	if (user.isPresent()) {
+		Optional<Note> isNoteAvailable = noteRepository.findById(noteId);
+		if (isNoteAvailable.isPresent()) {
+			isNoteAvailable.get().setPin(false);
+			isNoteAvailable.get().setArchiev(!isNoteAvailable.get().isArchiev());
+			noteRepository.save(isNoteAvailable.get());
+			return true;
+		}
+	}
+	return false;
+}
+*/
 @Override
 public List<Note> getAllNotes(String token) {
 	// long id = jwtGenerator.parseJWT(token);
@@ -245,5 +262,7 @@ public Note updateNoteDetails(long noteId, String token, NoteDto noteDto) throws
 	}
 	return null;
 }
+
+
 }
 	

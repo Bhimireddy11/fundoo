@@ -55,6 +55,23 @@ public class NoteController {
 					? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is created successfully", 200, noteInfo))
 					: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Something went wrong", 400));
 		}
+		/*
+		 * API map the creation of existing note 
+		 * 
+		 
+		@GetMapping("notes/create/{noteId}")
+		@ApiOperation(value = "Api to check existing note", response = Response.class)
+		public ResponseEntity<Response> exisnote(@PathVariable("noteId") long noteId,
+				@RequestHeader("token") String token) throws Exception {
+
+			boolean result = noteService.isExist(noteId, token);
+			return (result)
+					? ResponseEntity.status(HttpStatus.OK)
+							.body(new Response("note created  sucessfully", 200))
+					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("note id is already exist", 400));
+		}
+
+		*/
 
 		/*	
 		 * Api to add notes into trash

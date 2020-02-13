@@ -33,6 +33,11 @@ public interface NoteService {
 
 	Note updateNoteDetails(long noteId, String token, NoteDto noteDto) throws NoteIdNotFoundException;
 
+	
+
+
+	//boolean isExist(long noteId, String token);
+
 }
 
 

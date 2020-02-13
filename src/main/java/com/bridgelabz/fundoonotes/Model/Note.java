@@ -47,6 +47,7 @@ public class Note {
 		@JsonIgnore
 		private LocalDateTime updatedAt;
 		private String colour;
+	
 
 		private LocalDateTime reminder;
 		@JsonIgnore
@@ -129,10 +130,11 @@ public class Note {
 		public void setLabels(List<Label> labels) {
 			this.labels = labels;
 		}
+		
 		@Override
 		public String toString() {
 			return "Note [noteId=" + noteId + ", title=" + title + ", desrition=" + description + ",  isArchiev=" +  isArchiev + ", isPin="
 					+ isPin + ", isTrash=" + isTrash + ", createdAt=" + createdAt + ", colour=" +colour
 					+ ", reminder=" + reminder + ",userNotes=" +userNotes +",Labels="+labels+"]";
 		}
-	}
+}
