@@ -16,6 +16,7 @@ public class RedisConfig {
 	RedisTemplate<String, Object> redisTemplate() {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
+		redisTemplate.setEnableTransactionSupport(true);
 		return redisTemplate;
 	}
 }

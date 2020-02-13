@@ -31,7 +31,7 @@ import com.bridgelabz.fundoonotes.customexceptions.UserNotVerifiedException;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 import com.bridgelabz.fundoonotes.utility.MailServiceProvider;
 import com.bridgelabz.fundoonotes.utility.Util;
-;
+
 
 
 
@@ -40,7 +40,7 @@ import com.bridgelabz.fundoonotes.utility.Util;
 
 public  class UserServiceimpl  implements UserService  {
 	
-
+private Log log;
 		@Autowired
 		private UserRepository userRepository;
 
@@ -158,7 +158,7 @@ public  class UserServiceimpl  implements UserService  {
 					String response = mailresponse.formMessage("http://localhost:8080/users/verify",
 							generate.jwtToken(userInfo.get().getUserId()));
 
-				//	log.info("Verification Link :" + response);
+					log.info("Verification Link :" + response);
 
 					MailServiceProvider.sendEmail(loginDetails.getEmail(), "verification", response);
 
