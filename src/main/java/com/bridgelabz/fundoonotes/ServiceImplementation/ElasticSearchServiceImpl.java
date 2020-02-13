@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoonotes.ServiceImplementation;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.Model.Note;
-import com.bridgelabz.fundoonotes.Sevice.ElasticSearchServic.ElasticSearchService;
+import com.bridgelabz.fundoonotes.Sevice.ElasticSearchService;
 import com.bridgelabz.fundoonotes.config.ElasticSearchConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

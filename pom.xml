@@ -195,12 +195,6 @@
 			
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-<dependency>
-    <groupId>redis.clients</groupId>
-    <artifactId>jedis</artifactId>
-   
-</dependency>
-		
 
 		<!-- https://mvnrepository.com/artifact/javax.jms/jms -->
 
