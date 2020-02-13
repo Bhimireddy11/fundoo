@@ -3,6 +3,7 @@ package com.bridgelabz.fundoonotes.ServiceImplementation;
 
 import java.time.LocalDateTime;
 
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +22,7 @@ import com.bridgelabz.fundoonotes.Model.Note;
 import com.bridgelabz.fundoonotes.Model.UserDemo;
 import com.bridgelabz.fundoonotes.Repository.NoteRepository;
 import com.bridgelabz.fundoonotes.Repository.UserRepository;
-import com.bridgelabz.fundoonotes.Sevice.ElasticSearchServic.ElasticSearchService;
-
+import com.bridgelabz.fundoonotes.Sevice.ElasticSearchService;
 import com.bridgelabz.fundoonotes.Sevice.NoteService;
 import com.bridgelabz.fundoonotes.customexceptions.NoteIdNotFoundException;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
