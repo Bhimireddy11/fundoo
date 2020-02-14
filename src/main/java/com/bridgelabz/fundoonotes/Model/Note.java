@@ -23,6 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Data
+
 public class Note {
 	
 		@Id
@@ -47,8 +48,6 @@ public class Note {
 		@JsonIgnore
 		private LocalDateTime updatedAt;
 		private String colour;
-	
-
 		private LocalDateTime reminder;
 		@JsonIgnore
 		@ManyToOne

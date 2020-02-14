@@ -28,7 +28,7 @@ public class LabelController {
 	@Autowired
 	 LabelService labelService;
 	/*
-	 * Api create labes for the note
+	 * API create labels for the note
 	 */
 	@PostMapping
 	@ApiOperation(value = "api to create label",response = Response.class)

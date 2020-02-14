@@ -39,8 +39,6 @@ public class NoteServiceImpl implements NoteService {
 	JwtGenerator jwtGenerator;
 	@Autowired
 	UserRepository userRepository;
-
-
 	@Autowired
 	Note note;
 	@Autowired
