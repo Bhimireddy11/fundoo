@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
+import com.bridgelabz.fundoonotes.Model.Collaborator;
 import com.bridgelabz.fundoonotes.Model.Label;
 import com.bridgelabz.fundoonotes.Model.Note;
 
@@ -26,11 +26,13 @@ public class ApplicationConfigurartions {
 	 @Bean public Note getNote() { return new Note(); }
 	 
 	 @Bean public Label getLabel()
-	 { return new Label(); }
-	/*
-	 * @Bean public Collaborator getCollaborator() { return new Collaborator(); }
-	 * 
-	 */
+	 { 
+		 return new Label(); 
+		 }
+	
+	  @Bean public Collaborator getCollaborator() { return new Collaborator(); }
+	 
+	 
 }
 
 

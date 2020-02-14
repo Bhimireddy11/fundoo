@@ -26,6 +26,7 @@ public class Collaborator {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private long coalbId;
 	private String email;
+	
 
 	@JsonIgnore
 	@ManyToMany 
@@ -39,14 +40,20 @@ public class Collaborator {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void setNoteColab(Note note) {
-		// TODO Auto-generated method stub
+
+
+
+	
+	public void setNoteColab(Note noteColab) {
 		
 	}
+		
+	
 	
 /*
  * @Override public String toString() { return "collaborator[colabId=" + coalbId
  * + ", email=" + email+ "]"; } }
  */
-}
+	}
+
 
