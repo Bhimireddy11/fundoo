@@ -5,7 +5,6 @@ import java. util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +20,13 @@ import com.bridgelabz.fundoonotes.Model.Collaborator;
 import com.bridgelabz.fundoonotes.Response.Response;
 import com.bridgelabz.fundoonotes.Sevice.CollaboratorService;
 @RestController
-@RequestMapping("/collaborator")
-@Controller
-public class CollaboratorController {
 
+@RequestMapping("/collaborator")
+public class CollaboratorController {
+	
 	@Autowired
 	CollaboratorService collaboratorService;
-
+	
 	/* 
 	 * Api to add Collaborator 
    */

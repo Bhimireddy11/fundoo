@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.bridgelabz.fundoonotes.DTO.CollaboratorDto;
 import com.bridgelabz.fundoonotes.DTO.UpdateCollaboreatorDto;
 import com.bridgelabz.fundoonotes.Model.Collaborator;
-@Service
+
 public interface CollaboratorService {
 
 	Collaborator addCollaborator(CollaboratorDto colabDto,long noteId);

@@ -30,7 +30,6 @@ public class ApplicationConfigurartions {
 		 return new Label(); 
 		 }
 	
-	  @Bean public Collaborator getCollaborator() { return new Collaborator(); }
 	 
 	 
 }

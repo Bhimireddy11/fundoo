@@ -214,10 +214,7 @@
 			<artifactId>spring-security-crypto</artifactId>
 			
 		</dependency>
-
-
-
-	</dependencies>
+</dependencies>
 
 	<build>
 		<plugins>
