@@ -25,6 +25,7 @@ import com.bridgelabz.fundoonotes.Repository.UserRepository;
 import com.bridgelabz.fundoonotes.Response.MailObject;
 import com.bridgelabz.fundoonotes.Response.MailResponse;
 import com.bridgelabz.fundoonotes.Sevice.UserService;
+import com.bridgelabz.fundoonotes.config.RabbitMqSender;
 import com.bridgelabz.fundoonotes.customexceptions.EmailAlreadyExistException;
 import com.bridgelabz.fundoonotes.customexceptions.EmailNotFoundException;
 import com.bridgelabz.fundoonotes.customexceptions.UserNotVerifiedException;
@@ -90,6 +91,7 @@ private Log log;
 				mailObject.setMessage(response);
 				mailObject.setSubject("verification");
 				MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
+				//rabbitMqSender.send(mailObject);
 				return userDetails;
 			} 
 

@@ -17,7 +17,7 @@ public class RabbitMqSender {
 	@Value("rube.key")
 	private String routingkey;	
 	
-	public void send(MailObject message) {
+	public  void send(MailObject message) {
 		rabbitTemplate.convertAndSend(exchange, routingkey, message);
 	}
 
