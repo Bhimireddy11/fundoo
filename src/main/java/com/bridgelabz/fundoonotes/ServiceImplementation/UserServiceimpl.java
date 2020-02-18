@@ -60,8 +60,8 @@ private Log log;
 
 		@Autowired
 		private BCryptPasswordEncoder encryption;
-
-		
+      @Autowired
+       private RabbitMqSender  rabbitMQSender;
 		@Transactional
 		@Override
 		public UserDemo registration(UserDto userDto) throws Exception  {
@@ -86,12 +86,15 @@ private Log log;
 
 				String response = mailresponse.formMessage("http://localhost:8080/users/verify/",
 						generate.jwtToken(userDetails.getUserId()));
-				//log.info("Response URL :" + response);
+			
 				mailObject.setEmail(userDto.getEmail());
 				mailObject.setMessage(response);
 				mailObject.setSubject("verification");
-				MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
-				//rabbitMqSender.send(mailObject);
+				//before adding rabbitmqsender code
+			//MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
+				
+				
+				rabbitMQSender.send(mailObject);
 				return userDetails;
 			} 
 
