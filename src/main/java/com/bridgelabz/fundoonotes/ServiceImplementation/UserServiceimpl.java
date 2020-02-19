@@ -38,7 +38,6 @@ import com.bridgelabz.fundoonotes.utility.Util;
 
 @Service
 
-
 public  class UserServiceimpl  implements UserService  {
 	
 private Log log;
@@ -92,8 +91,6 @@ private Log log;
 				mailObject.setSubject("verification");
 				//before adding rabbitmqsender code
 			//MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
-				
-				
 				rabbitMQSender.send(mailObject);
 				return userDetails;
 			} 
