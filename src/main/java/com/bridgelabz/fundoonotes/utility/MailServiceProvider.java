@@ -20,8 +20,8 @@ public class MailServiceProvider {
 	private String pswd;
 	public static void sendEmail(String toEmail, String subject, String body) {
 
-		String fromEmail =//Setting email at runtime environment
-		String password = "@123";//Setting password at runtime environment
+		String fromEmail =System.getenv("email");//Setting email at runtime environment
+		String password = System.getenv("password");//Setting password at runtime environment
 
 		Properties prop = new Properties();
 		prop.put("mail.smtp.auth", "true");
