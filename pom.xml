@@ -73,7 +73,6 @@
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>6.6.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-redis -->
 <dependency>
@@ -192,6 +191,20 @@
 			<artifactId>spring-context-support</artifactId>
 			
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
+<dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-s3</artifactId>
+    <version>1.11.714</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core -->
+<dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-core</artifactId>
+    <version>1.11.706</version>
+</dependency>
+
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-redis -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
