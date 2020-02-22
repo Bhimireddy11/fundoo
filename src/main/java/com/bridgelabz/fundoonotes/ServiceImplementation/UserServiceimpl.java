@@ -1,22 +1,14 @@
 package com.bridgelabz.fundoonotes.ServiceImplementation;
-
-
-
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import javax.transaction.Transactional;
-
 import org.apache.commons.logging.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.bridgelabz.fundoonotes.DTO.LoginDetails;
 import com.bridgelabz.fundoonotes.DTO.UpdatePassword;
 import com.bridgelabz.fundoonotes.DTO.UserDto;
@@ -32,14 +24,8 @@ import com.bridgelabz.fundoonotes.customexceptions.UserNotVerifiedException;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 import com.bridgelabz.fundoonotes.utility.MailServiceProvider;
 import com.bridgelabz.fundoonotes.utility.Util;
-
-
-
-
 @Service
-
 public  class UserServiceimpl  implements UserService  {
-	
 private Log log;
 		@Autowired
 		private UserRepository userRepository;
@@ -55,8 +41,6 @@ private Log log;
 
 		@Autowired
 		private MailObject mailObject;
-
-
 		@Autowired
 		private BCryptPasswordEncoder encryption;
       @Autowired
@@ -94,9 +78,7 @@ private Log log;
 				rabbitMQSender.send(mailObject);
 				return userDetails;
 			} 
-
 		}
-
 		@Override
 		public List<UserDemo> getAllDetails() {
 			return (List<UserDemo>) userRepository.findAll();
@@ -112,7 +94,6 @@ private Log log;
 				map.put("FirstName", isUserIdAvailable.get().getFirstName());
 				map.put("LastName", isUserIdAvailable.get().getLastName());
 			} else {
-
 			}
 			return map;
 		}
@@ -131,7 +112,6 @@ private Log log;
 			}
 			return false;
 		}
-
 		@Override
 		public boolean findByUserId(long userId) {
 
@@ -142,7 +122,6 @@ private Log log;
 			}
 			return false;
 		}
-
 		@Transactional
 		@Override
 		public UserDemo login(LoginDetails loginDetails) throws Exception  {
@@ -185,7 +164,6 @@ private Log log;
 			}
 			return false;
 		}
-
 		@Override
 		public boolean isUserAvailable(String email) throws Exception  {
 			Optional<UserDemo> isUserAvailable = userRepository.findOneByEmail(email);
