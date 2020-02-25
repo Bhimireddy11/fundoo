@@ -132,14 +132,14 @@ private Log log;
 				if ((userInfo.get().isVerified())
 						&& encryption.matches(loginDetails.getPassword(), userInfo.get().getPswd())) {
 
-				//	log.info("Generated Token :" + generate.jwtToken(userInfo.get().getUserId()));
+					log.info("Generated Token :" + generate.jwtToken(userInfo.get().getUserId()));
 
 					return userInfo.get();
 				} else {
 					String response = mailresponse.formMessage("http://localhost:8080/users/verify",
 							generate.jwtToken(userInfo.get().getUserId()));
 
-					log.info("Verification Link :" + response);
+					//log.info("Verification Link :" + response);
 
 					MailServiceProvider.sendEmail(loginDetails.getEmail(), "verification", response);
 

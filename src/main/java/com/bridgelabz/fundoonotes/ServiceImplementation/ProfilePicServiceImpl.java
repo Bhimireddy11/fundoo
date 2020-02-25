@@ -1,7 +1,10 @@
 package com.bridgelabz.fundoonotes.ServiceImplementation;
 
 import java.io.IOException;
+
 import java.util.Optional;
+
+import javax.annotation.PostConstruct;
 
 import org.hibernate.annotations.common.util.impl.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AnonymousAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -23,12 +27,15 @@ import com.bridgelabz.fundoonotes.Sevice.ProfilePicService;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 
 
+
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class ProfilePicServiceImpl implements ProfilePicService {
 
+
+	
 	@Autowired
 	private ProfilePicRepository profilePicRepository;
 
@@ -38,8 +45,8 @@ public class ProfilePicServiceImpl implements ProfilePicService {
 	private AmazonS3 amazonS3Client;
 	@Autowired
 	private JwtGenerator jwtGenerator;
-	 @Value("${aws.bucket.name}")
-	    private String bucketName;
+
+	    private String bucketName=System.getenv("raji");
 	public Profile storeObjectInS3(MultipartFile file, String fileName, String contentType, String token) {
 		try {
 			long userId = jwtGenerator.parseJWT(token);

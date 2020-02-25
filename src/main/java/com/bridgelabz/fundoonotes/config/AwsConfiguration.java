@@ -1,6 +1,5 @@
 package com.bridgelabz.fundoonotes.config;
 
-import org.springframework.beans.factory.annotation.Value;
 	
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,14 +17,11 @@ public class AwsConfiguration {
 	
 	
 	
-	@Value("${aws.accessKey} ")
-	private String accessKey;
 	
-	@Value("${aws.secretKey} ")
-	private String secretKey;
-	@Value("${aws.region} ")
-	private String region ;
-
+	private String accessKey=System.getenv("accessKey");
+	
+	private String secretKey=System.getenv("secretKey");
+   private String region=System.getenv("region");
 	@Bean
 	public AmazonS3 awsS3Clint() {
 		BasicAWSCredentials awsCreds= new BasicAWSCredentials(accessKey, secretKey);
