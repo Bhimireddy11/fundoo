@@ -48,7 +48,8 @@ public class Profile {
 	 @JsonIgnore
 	 @ManyToOne
 	 @JoinColumn(name="userId")
-	 private UserDemo userLabel;
+	
+	private UserDemo userLabel;
 
 	 }
 	 
