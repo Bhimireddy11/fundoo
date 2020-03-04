@@ -57,14 +57,14 @@ public class UserController {
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), 400, null));
+					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), null));
 		} else {
 			UserDemo user = userService.registration(userDto);
 			return user != null
 					? ResponseEntity.status(HttpStatus.CREATED)
-							.body(new Response("registration successfull", 200, user))
+							.body(new Response("registration successfull", user))
 					: ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-							.body(new Response("user already exist", 400, user));
+							.body(new Response("user already exist", user));
 		}
 	}
 
@@ -126,16 +126,16 @@ public class UserController {
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), 400, null));
+					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), null));
 		} 
 			UserDemo userInfo = userService.updatePassword(token, pswd);
 			userInfo.setPswd("*******");
 			
 			return userInfo != null
 					? ResponseEntity.status(HttpStatus.OK)
-							.body(new Response("Password is Update Successfully", 200, userInfo))
+							.body(new Response("Password is Update Successfully", userInfo))
 					: ResponseEntity.status(HttpStatus.NOT_MODIFIED)
-			 .body(new Response("Password and Confirm Password doesn't matched", 400,userInfo));
+			 .body(new Response("Password and Confirm Password doesn't matched",userInfo));
 	}					
 	/*
 	 * API to get User list
@@ -145,6 +145,6 @@ public class UserController {
 	@ApiOperation(value = "Api to get user list", response = Response.class)
 	public ResponseEntity<Response> usersList() {
 		List<UserDemo> userList = (List<UserDemo>) userRepository.findAll();
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Users are", 200, userList));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Users are", userList));
 	}
 }

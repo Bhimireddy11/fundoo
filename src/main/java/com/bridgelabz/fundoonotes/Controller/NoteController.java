@@ -52,7 +52,7 @@ public class NoteController {
 			}
 			Note noteInfo = noteService.computeSave(noteDto, token);
 			return noteInfo != null
-					? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is created successfully", 200, noteInfo))
+					? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is created successfully", noteInfo))
 					: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Something went wrong", 400));
 		}
 		/*
@@ -97,7 +97,7 @@ public class NoteController {
 		public ResponseEntity<Response> notes(@RequestHeader("token") String token) {
 			//log.info("GET TOKEN :" + token);
 			List<Note> notes = noteService.getAllNotes(token);
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes are", 200, notes));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes are", notes));
 		}
 
 		/*
@@ -154,7 +154,7 @@ public class NoteController {
 		@ApiOperation(value = "Api to update note", response = Response.class)
 		public ResponseEntity<Response> updateNote(@RequestParam("noteId") long noteId,
 				@RequestHeader("token") String token, @RequestBody NoteDto noteDto) {
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("Note is updated successfully", 200,
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("Note is updated successfully", 
 					noteService.updateNoteDetails(noteId, token, noteDto)));
 		}
 
@@ -179,7 +179,7 @@ public class NoteController {
 		public ResponseEntity<Response> searchByTitle(@RequestParam("title") String title,
 				@RequestHeader("token") String token) {
 			List<Note> noteList = noteService.searchByTitle(title);
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("List of Notes are", 200, noteList));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("List of Notes are", noteList));
 
 		}
 
@@ -192,7 +192,7 @@ public class NoteController {
 				@RequestHeader("token") String token) {
 			List<Label> noteList = noteService.getAllLabelsOfOneNote(token, noteId);
 			return ResponseEntity.status(HttpStatus.OK)
-					.body(new Response("Labels releated to current Note are", 200, noteList));
+					.body(new Response("Labels releated to current Note are", noteList));
 		}
 	}
 

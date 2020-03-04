@@ -16,7 +16,7 @@ public interface UserService {
 
 	Map<String, Object> findByIdUserId(long userId);
 
-	boolean updateDetails(UserDemo user);
+	boolean forgotpassword(UserDemo user);
 
 	boolean findByUserId(long userId);
 

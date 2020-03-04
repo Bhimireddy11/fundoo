@@ -97,7 +97,7 @@ public class LabelController {
 	@ApiOperation(value = "Api to get all labels", response = Response.class)
 	public ResponseEntity<Response> getAllLabels(@RequestHeader("token") String token) throws Exception {
 		List<Label> labelList = labelService.getAllLabels(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Label List are", 200, labelList));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Label List are",  labelList));
 	}
 
 	/*
@@ -109,7 +109,7 @@ public class LabelController {
 			@RequestParam("labelId") long labelId) throws Exception {
 		List<Note> noteList = labelService.getAllNotes(token, labelId);
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(new Response("Notes releated to current labelId are", 200, noteList));
+				.body(new Response("Notes releated to current labelId are", noteList));
 	}
 
 	/*

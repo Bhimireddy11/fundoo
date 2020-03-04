@@ -99,7 +99,7 @@ private Log log;
 		}
 
 		@Override
-		public boolean updateDetails(UserDemo user) {
+		public boolean forgotpassword(UserDemo user) {
 			long userId = user.getUserId();
 			String pswd = user.getPswd();
 

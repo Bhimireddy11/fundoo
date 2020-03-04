@@ -19,8 +19,4 @@ public interface UserRepository extends CrudRepository<UserDemo, Long> {
 
 	UserDemo findOneByUserId(long userId);
 
-
-
-
-	
 }

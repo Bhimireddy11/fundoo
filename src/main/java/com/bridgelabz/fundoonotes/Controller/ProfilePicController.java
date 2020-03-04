@@ -33,7 +33,7 @@ public class ProfilePicController {
 		Profile profile = profilePicService.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(),
 				token);
 		return profile.getUserLabel() != null
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile added succussefully", 200, profile))
+				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile added succussefully", profile))
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went Wrong ", 400));
 	}
 	/* Api to update a profice pic */
@@ -43,7 +43,7 @@ public class ProfilePicController {
 		Profile profile = profilePicService.updateObejctInS3(file, file.getOriginalFilename(), file.getContentType(),
 				token);
 		return profile.getUserLabel() != null
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile updated succussefully", 200, profile))
+				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile updated succussefully", profile))
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went Wrong ", 400));
 	}
 	
@@ -54,7 +54,7 @@ public class ProfilePicController {
 	public ResponseEntity<Response> getProfilePic(@RequestHeader("token") String token){
 	
 	S3Object s3 = 	profilePicService.getProfilePic(token);
-		return s3!=null ?  ResponseEntity.status(HttpStatus.OK).body(new Response("profile pic", 200, s3))
+		return s3!=null ?  ResponseEntity.status(HttpStatus.OK).body(new Response("profile pic",  s3))
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("no profile pic ", 400));
 	}
 }

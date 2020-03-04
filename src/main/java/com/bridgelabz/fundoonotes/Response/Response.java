@@ -1,6 +1,7 @@
 
 package com.bridgelabz.fundoonotes.Response;
 
+import com.bridgelabz.fundoonotes.Model.UserDemo;
 
 public class Response {
 	private String message;
@@ -24,13 +25,11 @@ public class Response {
 	public void setObj(Object obj) {
 		this.obj = obj;
 	}
-	public Response(String message,int statusCode) {
+	
+	
+	public  Response(String message,Object obj) {
 		this.message=message;
-		this.statusCode=statusCode;
-	}
-	public  Response(String message,int statusCode,Object obj) {
-		this.message=message;
-		this.statusCode=statusCode;
+		
 		this.obj=obj;
 	}
 }
