@@ -5,7 +5,7 @@ import com.bridgelabz.fundoonotes.Model.UserDemo;
 
 public class Response {
 	private String message;
-	private int statusCode;
+//	private int statusCode;
 	private Object obj;
 	public String getMessage() {
 		return message;
@@ -13,12 +13,12 @@ public class Response {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public int getStatusCode() {
-		return statusCode;
-	}
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
-	}
+//	public int getStatusCode() {
+//		return statusCode;
+//	}
+//	public void setStatusCode(int statusCode) {
+//		this.statusCode = statusCode;
+//	}
 	public Object getObj() {
 		return obj;
 	}
@@ -27,9 +27,10 @@ public class Response {
 	}
 	
 	
-	public  Response(String message,Object obj) {
+	public  Response(String message) {
 		this.message=message;
 		
-		this.obj=obj;
+		
 	}
+	
 }

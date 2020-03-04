@@ -48,12 +48,12 @@ public class NoteController {
 
 			if (bindingResult.hasErrors()) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), 400));
+						.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage()));
 			}
 			Note noteInfo = noteService.computeSave(noteDto, token);
 			return noteInfo != null
-					? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is created successfully", noteInfo))
-					: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Something went wrong", 400));
+					? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is created successfully"))
+					: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Something went wrong"));
 		}
 		/*
 		 * API map the creation of existing note 
@@ -84,8 +84,8 @@ public class NoteController {
 			boolean result = noteService.deleteOneNote(noteId, token);
 			return (result)
 					? ResponseEntity.status(HttpStatus.OK)
-							.body(new Response("Note is successfully added to the trashed", 200))
-					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Note ID is not Available", 400));
+							.body(new Response("Note is successfully added to the trashed"))
+					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Note ID is not Available"));
 		}
 
 		/*
@@ -97,7 +97,7 @@ public class NoteController {
 		public ResponseEntity<Response> notes(@RequestHeader("token") String token) {
 			//log.info("GET TOKEN :" + token);
 			List<Note> notes = noteService.getAllNotes(token);
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes are", notes));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes are"));
 		}
 
 		/*
@@ -108,8 +108,8 @@ public class NoteController {
 		public ResponseEntity<Response> makeArchive(@PathVariable("noteId") long noteId,
 				@RequestHeader("token") String token) {
 			boolean result = noteService.isArchived(noteId, token);
-			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is Archived Successfully", 200))
-					: ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new Response("Note doesn't Archived", 400));
+			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is Archived Successfully"))
+					: ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new Response("Note doesn't Archived"));
 		}
 
 		/*
@@ -120,8 +120,8 @@ public class NoteController {
 		public ResponseEntity<Response> addColor(@RequestParam("color") String color, @RequestHeader("token") String token,
 				@PathVariable("noteId") long noteId) {
 			boolean result = noteService.addColor(color, token, noteId);
-			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Color is added successfully", 200))
-					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong", 400));
+			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Color is added successfully"))
+					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong"));
 		}
 
 		/*
@@ -131,8 +131,8 @@ public class NoteController {
 		@ApiOperation(value = "Api to make note pinned", response = Response.class)
 		public ResponseEntity<Response> pinned(@RequestParam("noteId") long noteId, @RequestHeader("token") String token) {
 			boolean result = noteService.pinnedNotes(noteId, token);
-			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is pinned", 200))
-					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong", 400));
+			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is pinned"))
+					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong"));
 		}
 
 		/*
@@ -143,8 +143,8 @@ public class NoteController {
 		public ResponseEntity<Response> reminder(@RequestParam("noteId") long noteId, @RequestHeader("token") String token,
 				@RequestBody ReminderDto reminderDto) throws Exception {
 			boolean result = noteService.setReminder(noteId, token, reminderDto);
-			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Reminder is Added Successfully", 200))
-					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong", 400));
+			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Reminder is Added Successfully"))
+					: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong"));
 		}
 
 		/*
@@ -154,8 +154,7 @@ public class NoteController {
 		@ApiOperation(value = "Api to update note", response = Response.class)
 		public ResponseEntity<Response> updateNote(@RequestParam("noteId") long noteId,
 				@RequestHeader("token") String token, @RequestBody NoteDto noteDto) {
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("Note is updated successfully", 
-					noteService.updateNoteDetails(noteId, token, noteDto)));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("Note is updated successfully"));
 		}
 
 		/*
@@ -166,9 +165,9 @@ public class NoteController {
 		public ResponseEntity<Response> permanentDelete(@PathVariable("noteId") long noteId,
 				@RequestHeader("token") String token) throws Exception {
 			boolean result = noteService.permanentDelete(noteId, token);
-			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is deleted permanently", 200))
+			return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is deleted permanently"))
 					: ResponseEntity.status(HttpStatus.NOT_FOUND)
-							.body(new Response("The note you are trying to delete is not available", 400));
+							.body(new Response("The note you are trying to delete is not available"));
 		}
 
 		/*
@@ -179,7 +178,7 @@ public class NoteController {
 		public ResponseEntity<Response> searchByTitle(@RequestParam("title") String title,
 				@RequestHeader("token") String token) {
 			List<Note> noteList = noteService.searchByTitle(title);
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("List of Notes are", noteList));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("List of Notes are"));
 
 		}
 
@@ -192,7 +191,7 @@ public class NoteController {
 				@RequestHeader("token") String token) {
 			List<Label> noteList = noteService.getAllLabelsOfOneNote(token, noteId);
 			return ResponseEntity.status(HttpStatus.OK)
-					.body(new Response("Labels releated to current Note are", noteList));
+					.body(new Response("Labels releated to current Note are"));
 		}
 	}
 

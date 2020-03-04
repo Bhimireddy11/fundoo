@@ -36,8 +36,8 @@ public class CollaboratorController {
 		Collaborator colabInfo = collaboratorService.addCollaborator(colabDto, noteId);
 		return colabInfo != null
 				? ResponseEntity.status(HttpStatus.OK)
-						.body(new Response("Collaborator Added to the Note", colabInfo))
-				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("BAD REQUEST", 400));
+						.body(new Response("Collaborator Added to the Note"))
+				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("BAD REQUEST"));
 
 	}
 
@@ -47,13 +47,13 @@ public class CollaboratorController {
 	@GetMapping("/collaboratorlist")
 	public ResponseEntity<Response> getCollaborator(@RequestParam("noteId") long noteId) {
 		List<Collaborator> colabList = collaboratorService.getCollaboratorList(noteId);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Collaborator List", colabList));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Collaborator List"));
 	}
 	
 	@PutMapping
 	public ResponseEntity<Response> updateCollaborator(@RequestBody UpdateCollaboreatorDto updateColabDto){
 		collaboratorService.updateCollaborator(updateColabDto);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Successfully updated", 200));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Successfully updated"));
 	}
 
 }

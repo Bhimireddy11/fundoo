@@ -57,14 +57,14 @@ public class UserController {
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), null));
+					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage()));
 		} else {
 			UserDemo user = userService.registration(userDto);
 			return user != null
 					? ResponseEntity.status(HttpStatus.CREATED)
-							.body(new Response("registration successfull", user))
+							.body(new Response("registration successfull"))
 					: ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-							.body(new Response("user already exist", user));
+							.body(new Response("user already exist"));
 		}
 	}
 
@@ -80,11 +80,11 @@ public class UserController {
 		loginDetails.setPassword("******");
 		if (userInformation != null) {
 			String token = generate.jwtToken(userInformation.getUserId());
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new UserAuntication(token, 200, loginDetails));
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new UserAuntication(token,loginDetails));
 		} else {
 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new UserAuntication("Login failed", 404, loginDetails));
+					.body(new UserAuntication("Login failed", loginDetails));
 		}
 	}
 
@@ -95,8 +95,8 @@ public class UserController {
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Throwable {
 		System.out.println("token for verification" + token);
 		boolean update = userService.verify(token);
-		return (update) ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified", 200))
-				: ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified", 400));
+		return (update) ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("verified"))
+				: ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("not verified"));
 	}
 
 	/*
@@ -109,8 +109,8 @@ public class UserController {
 		log.info("Email :" + email);
 
 		boolean result = userService.isUserAvailable(email);
-		return (result) ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("User Exist", 200))
-				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("User Doesn't Exist", 400));
+		return (result) ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("User Exist"))
+				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("User Doesn't Exist"));
 	}
 
 	/*
@@ -126,16 +126,16 @@ public class UserController {
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), null));
+					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage()));
 		} 
 			UserDemo userInfo = userService.updatePassword(token, pswd);
 			userInfo.setPswd("*******");
 			
 			return userInfo != null
 					? ResponseEntity.status(HttpStatus.OK)
-							.body(new Response("Password is Update Successfully", userInfo))
+							.body(new Response("Password is Update Successfully"))
 					: ResponseEntity.status(HttpStatus.NOT_MODIFIED)
-			 .body(new Response("Password and Confirm Password doesn't matched",userInfo));
+			 .body(new Response("Password and Confirm Password doesn't matched"));
 	}					
 	/*
 	 * API to get User list
@@ -145,6 +145,6 @@ public class UserController {
 	@ApiOperation(value = "Api to get user list", response = Response.class)
 	public ResponseEntity<Response> usersList() {
 		List<UserDemo> userList = (List<UserDemo>) userRepository.findAll();
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Users are", userList));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Users are"));
 	}
 }

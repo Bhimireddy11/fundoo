@@ -35,8 +35,8 @@ public class LabelController {
 	public ResponseEntity<Response> createLabel(@RequestBody LabelDto labelDto, @RequestHeader("token") String token){
 
 		boolean result = labelService.createlabel(labelDto, token);
-		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is Created", 200))
-				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Label is Already exist", 400));
+		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is Created"))
+				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Label is Already exist"));
 
 	}
 
@@ -47,9 +47,9 @@ public class LabelController {
 	public ResponseEntity<Response> labelMapToNote(@RequestBody LabelDto labelDto, @PathVariable("noteId") long noteId,
 			@RequestHeader("token") String token){
 		boolean result = labelService.createOrMapWithNote(labelDto, noteId, token);
-		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is created successfully", 200))
+		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is created successfully"))
 				: ResponseEntity.status(HttpStatus.NOT_FOUND)
-						.body(new Response("The label you are trying to create is already exist!!!", 400));
+						.body(new Response("The label you are trying to create is already exist!!!"));
 	}
 
 	/*
@@ -60,8 +60,8 @@ public class LabelController {
 	public ResponseEntity<Response> removeLabel(@RequestHeader("token") String token,
 			@RequestParam("noteId") long noteId, @RequestParam("labelId") long labelId) {
 		boolean result = labelService.removeLabels(token, noteId, labelId);
-		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is Removed Successfully", 200))
-				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong", 400));
+		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is Removed Successfully"))
+				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong"));
 	}
 
 	/*
@@ -72,9 +72,9 @@ public class LabelController {
 	public ResponseEntity<Response> deletelabel(@RequestHeader("token") String token,
 			@RequestParam("labelId") long labelId) throws Exception {
 		boolean result = labelService.deletepermanently(token, labelId);
-		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is deleted successfully", 200))
+		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is deleted successfully"))
 				: ResponseEntity.status(HttpStatus.NOT_FOUND)
-						.body(new Response("The label you are trying to delete is not Available", 400));
+						.body(new Response("The label you are trying to delete is not Available"));
 	}
 
 	/*
@@ -85,9 +85,9 @@ public class LabelController {
 	public ResponseEntity<Response> updateLabel(@RequestHeader("token") String token,
 			@RequestParam("labelId") long labelId, @RequestBody LabelDto labelDto) throws Exception {
 		boolean result = labelService.updateLabel(token, labelId, labelDto);
-		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is updated successfully", 200))
+		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is updated successfully"))
 				: ResponseEntity.status(HttpStatus.NOT_FOUND)
-						.body(new Response("The label you are trying to update is not available", 400));
+						.body(new Response("The label you are trying to update is not available"));
 	}
 
 	/*
@@ -97,7 +97,7 @@ public class LabelController {
 	@ApiOperation(value = "Api to get all labels", response = Response.class)
 	public ResponseEntity<Response> getAllLabels(@RequestHeader("token") String token) throws Exception {
 		List<Label> labelList = labelService.getAllLabels(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Label List are",  labelList));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Label List are"));
 	}
 
 	/*
@@ -109,7 +109,7 @@ public class LabelController {
 			@RequestParam("labelId") long labelId) throws Exception {
 		List<Note> noteList = labelService.getAllNotes(token, labelId);
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(new Response("Notes releated to current labelId are", noteList));
+				.body(new Response("Notes releated to current labelId are"));
 	}
 
 	/*
@@ -120,8 +120,8 @@ public class LabelController {
 	public ResponseEntity<Response> addLabelToNotes(@RequestHeader("token") String token,
 			@RequestParam("noteId") long noteId, @RequestParam("labelid") long labelId) {
 		boolean result = labelService.addLabels(token, noteId, labelId);
-		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is added to the notes", 200))
-				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong", 400));
+		return (result) ? ResponseEntity.status(HttpStatus.OK).body(new Response("Label is added to the notes"))
+				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Something went wrong"));
 	}
 }
 
