@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.jpa.show.Sql",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.show.Sql'"
+  },
+  {
+    "name": "spring",
+    "type": "java.lang.String",
+    "description": "A description for 'spring'"
+  }
+]}

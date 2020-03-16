@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.bridgelabz.fundoonotes.DTO.LoginDetails;
 import com.bridgelabz.fundoonotes.DTO.UpdatePassword;
 import com.bridgelabz.fundoonotes.DTO.UserDto;
@@ -25,6 +27,7 @@ import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 import com.bridgelabz.fundoonotes.utility.MailServiceProvider;
 import com.bridgelabz.fundoonotes.utility.Util;
 @Service
+@CrossOrigin("*")
 public  class UserServiceimpl  implements UserService  {
 private Log log;
 		@Autowired
@@ -74,8 +77,8 @@ private Log log;
 				mailObject.setMessage(response);
 				mailObject.setSubject("verification");
 				//before adding rabbitmqsender code
-			//MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
-				rabbitMQSender.send(mailObject);
+			MailServiceProvider.sendEmail(mailObject.getEmail(),mailObject.getSubject(),mailObject.getMessage());
+				//rabbitMQSender.send(mailObject);
 				return userDetails;
 			} 
 		}

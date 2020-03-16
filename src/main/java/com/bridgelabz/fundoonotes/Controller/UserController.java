@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
+@CrossOrigin("*")
 public class UserController {
 
 	@Autowired
@@ -47,7 +49,7 @@ public class UserController {
 
 	/*
 	 * API to register new user
-	 */
+	 */	
 	@PostMapping(value = "/users/register")
 	@ApiOperation(value = "Api to register user", response = Response.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "registration successfull"),
