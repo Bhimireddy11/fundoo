@@ -27,7 +27,6 @@ import com.bridgelabz.fundoonotes.utility.JwtGenerator;
 import com.bridgelabz.fundoonotes.utility.MailServiceProvider;
 import com.bridgelabz.fundoonotes.utility.Util;
 @Service
-@CrossOrigin("*")
 public  class UserServiceimpl  implements UserService  {
 private Log log;
 		@Autowired
@@ -59,13 +58,13 @@ private Log log;
 			}
 			else{
 				userDetails.setEmail(userDto.getEmail());
-				userDetails.setFirstName(userDto.getFirstName());
-				userDetails.setLastName(userDto.getLastName());
-				userDetails.setPhone(Long.parseLong(userDto.getPhone()));
+				userDetails.setFirstName(userDto.getname());
+//				userDetails.setLastName(userDto.getLastName());
+				userDetails.setPhoneNumber(Long.parseLong(userDto.getPhoneNumber()));
 				userDetails.setCreatedAt(Util.dateTime());
 				userDetails.setVerified(false);
-				String password = encryption.encode(userDto.getPswd());
-				userDetails.setPswd(password);
+				String password = encryption.encode(userDto.getPassword());
+				userDetails.setPassword(password);
 
 				userRepository.save(userDetails);
 				System.out.println(userDetails);
@@ -94,8 +93,8 @@ private Log log;
 			if (isUserIdAvailable.isPresent()) {
 				map = new HashMap<String, Object>();
 				map.put("UserId", isUserIdAvailable.get().getUserId());
-				map.put("FirstName", isUserIdAvailable.get().getFirstName());
-				map.put("LastName", isUserIdAvailable.get().getLastName());
+				map.put("name", isUserIdAvailable.get().getname());
+//				map.put("LastName", isUserIdAvailable.get().getLastName());
 			} else {
 			}
 			return map;
@@ -104,11 +103,11 @@ private Log log;
 		@Override
 		public boolean forgotpassword(UserDemo user) {
 			long userId = user.getUserId();
-			String pswd = user.getPswd();
+			String pswd = user.getPassword();
 
 			String encrpswd = Util.passwordEncoder(pswd);
 
-			Optional<UserDemo> userinfo = userRepository.findOneByUserIdAndPswd(userId, encrpswd);
+			Optional<UserDemo> userinfo = userRepository.findOneByUserIdAndPassword(userId, encrpswd);
 			if (userinfo.isPresent()) {
 				userRepository.save(user);
 				return true;
@@ -133,9 +132,9 @@ private Log log;
 			if (userInfo.isPresent()) {
 			//	log.info("User Information " + userInfo);
 				if ((userInfo.get().isVerified())
-						&& encryption.matches(loginDetails.getPassword(), userInfo.get().getPswd())) {
+						&& encryption.matches(loginDetails.getPassword(), userInfo.get().getPassword())) {
 
-					log.info("Generated Token :" + generate.jwtToken(userInfo.get().getUserId()));
+					//log.info("Generated Token :" + generate.jwtToken(userInfo.get().getUserId()));
 
 					return userInfo.get();
 				} else {
@@ -189,7 +188,7 @@ private Log log;
 				Optional<UserDemo> isUserIdAvailable = userRepository.findById(id);
 				if (isUserIdAvailable.isPresent()) {
 					String password = encryption.encode(pswd.getNewpassword());
-					isUserIdAvailable.get().setPswd(password);
+					isUserIdAvailable.get().setPassword(password);
 					userRepository.save(isUserIdAvailable.get());
 					return isUserIdAvailable.get();
 				}

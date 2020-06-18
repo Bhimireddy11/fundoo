@@ -3,6 +3,7 @@ package com.bridgelabz.fundoonotes.Sevice;
 
 import java.util.List;
 
+
 import com.bridgelabz.fundoonotes.DTO.NoteDto;
 import com.bridgelabz.fundoonotes.DTO.ReminderDto;
 import com.bridgelabz.fundoonotes.Model.Label;
@@ -11,7 +12,7 @@ import com.bridgelabz.fundoonotes.customexceptions.NoteIdNotFoundException;
 
 public interface NoteService {
 
-	Note computeSave(NoteDto noteDto, String token);
+	Note createNote(NoteDto noteDto, String token);
 
 	boolean deleteOneNote(long id, String token) throws NoteIdNotFoundException;
 

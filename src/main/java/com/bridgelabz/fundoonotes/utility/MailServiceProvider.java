@@ -2,6 +2,7 @@ package com.bridgelabz.fundoonotes.utility;
 
 import java.util.Properties;
 
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -12,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Component;
 
-import lombok.Value;
+//import lombok.Value;
 
 
 @Component
@@ -35,8 +36,8 @@ public class MailServiceProvider {
 				return new PasswordAuthentication(fromEmail, password);
 			}
 		};
-		Session session = Session.getInstance(prop, auth);
-		send(session, fromEmail, toEmail, subject, body);
+	Session session = Session.getInstance(prop, auth);
+        send(session, fromEmail, toEmail, subject, body);
 	}
 
 	private static void send(Session session, String fromEmail, String toEmail, String subject, String body) {

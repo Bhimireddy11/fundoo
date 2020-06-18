@@ -52,7 +52,7 @@ public class NoteServiceImpl implements NoteService {
 	
 
 	@Override
-	public Note computeSave(NoteDto noteDto, String token) {
+	public Note createNote(NoteDto noteDto, String token) {
 
 		long userId = getRedisCacheId(token);
 		// long id = jwtGenerator.parseJWT(token);
@@ -63,9 +63,9 @@ public class NoteServiceImpl implements NoteService {
 			note = modelMapper.map(noteDto, Note.class);
 			note.setUserNotes(user.get());
 			note.setCreatedAt(LocalDateTime.now());
-			note.setArchiev(false);
-			note.setPin(false);
-			note.setTrash(false);
+			note.setArchieved(false);
+			note.setPinned(false);
+			note.setTrashed(false);
 			note.setColour("blue");
 
 			Note noteInfo = noteRepository.save(note);
@@ -82,7 +82,7 @@ public boolean deleteOneNote(long id, String token) throws NoteIdNotFoundExcepti
 	if (isUserAvailable.isPresent()) {
 		Optional<Note> isNoteIdAvailable = noteRepository.findById(id);
 		if (isNoteIdAvailable.isPresent()) {
-			isNoteIdAvailable.get().setTrash(!isNoteIdAvailable.get().isTrash());
+			isNoteIdAvailable.get().setTrashed(!isNoteIdAvailable.get().isTrashed());
 			noteRepository.save(isNoteIdAvailable.get());
 			return true;
 		} else {
@@ -101,8 +101,8 @@ public boolean isArchived(long noteId, String token) {
 	if (user.isPresent()) {
 		Optional<Note> isNoteAvailable = noteRepository.findById(noteId);
 		if (isNoteAvailable.isPresent()) {
-			isNoteAvailable.get().setPin(false);
-			isNoteAvailable.get().setArchiev(!isNoteAvailable.get().isArchiev());
+			isNoteAvailable.get().setPinned(false);
+			isNoteAvailable.get().setArchieved(!isNoteAvailable.get().isArchieved());
 			noteRepository.save(isNoteAvailable.get());
 			return true;
 		}
@@ -163,8 +163,8 @@ public boolean pinnedNotes(long id, String token) {
 	if (isUserAvailable.isPresent()) {
 		Optional<Note> isNoteAvailable = noteRepository.findById(id);
 		if (isNoteAvailable.isPresent()) {
-			isNoteAvailable.get().setArchiev(false);
-			isNoteAvailable.get().setPin(!isNoteAvailable.get().isPin());
+			isNoteAvailable.get().setArchieved(false);
+			isNoteAvailable.get().setPinned(!isNoteAvailable.get().isPinned());
 			noteRepository.save(isNoteAvailable.get());
 			return true;
 		}

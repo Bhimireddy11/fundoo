@@ -35,13 +35,13 @@ public class Note {
 		private String description;
 
 		@Column(columnDefinition = "boolean default false")
-		private boolean isArchiev;
+		private boolean isArchieved;
 
 		@Column(columnDefinition = "boolean default false")
-		private boolean isPin;
+		private boolean isPinned;
 
 		@Column(columnDefinition = "boolean default false")
-		private boolean isTrash;
+		private boolean isTrashed;
 
 		@JsonIgnore
 		private LocalDateTime createdAt;
@@ -75,23 +75,23 @@ public class Note {
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		public boolean isArchiev() {
-			return isArchiev;
+		public boolean isArchieved() {
+			return isArchieved;
 		}
-		public void setArchiev(boolean isArchiev) {
-			this.isArchiev = isArchiev;
+		public void setArchieved(boolean isArchieved) {
+			this.isArchieved = isArchieved;
 		}
-		public boolean isPin() {
-			return isPin;
+		public boolean isPinned() {
+			return isPinned;
 		}
-		public void setPin(boolean isPin) {
-			this.isPin = isPin;
+		public void setPinned(boolean isPinned) {
+			this.isPinned = isPinned;
 		}
-		public boolean isTrash() {
-			return isTrash;
+		public boolean isTrashed() {
+			return isTrashed;
 		}
-		public void setTrash(boolean isTrash) {
-			this.isTrash = isTrash;
+		public void setTrashed(boolean isTrashed) {
+			this.isTrashed= isTrashed;
 		}
 		public LocalDateTime getCreatedAt() {
 			return createdAt;
@@ -132,8 +132,8 @@ public class Note {
 		
 		@Override
 		public String toString() {
-			return "Note [noteId=" + noteId + ", title=" + title + ", desrition=" + description + ",  isArchiev=" +  isArchiev + ", isPin="
-					+ isPin + ", isTrash=" + isTrash + ", createdAt=" + createdAt + ", colour=" +colour
+			return "Note [noteId=" + noteId + ", title=" + title + ", desrition=" + description + ",  isArchiev=" +  isArchieved+ ", isPin="
+					+ isPinned + ", isTrash=" + isTrashed + ", createdAt=" + createdAt + ", colour=" +colour
 					+ ", reminder=" + reminder + ",userNotes=" +userNotes +",Labels="+labels+"]";
 		}
 }

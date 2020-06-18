@@ -20,13 +20,13 @@ public class UserDemo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
 	
-	private String firstName;
+	private String name;
 	
-	private String lastName;
+//	private String lastName;
 
-	private long phone;
+	private long phoneNumber;
 
-	private String pswd;
+	private String password;
 	
 	@Column(unique = true, nullable = false)
 	private String email;
@@ -54,36 +54,36 @@ public class UserDemo {
 		this.userId = userId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getname() {
+		return name;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.name = name;
 	}
 
-	public String getLastName() {
-		return lastName;
+//	public String getLastName() {
+//		return lastName;
+//	}
+//
+//	public void setLastName(String lastName) {
+//		this.lastName = lastName;
+//	}
+
+	public long getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public long getPhone() {
-		return phone;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPhone(long phone) {
-		this.phone = phone;
-	}
-
-	public String getPswd() {
-		return pswd;
-	}
-
-	public void setPswd(String pswd) {
-		this.pswd = pswd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -104,9 +104,9 @@ public class UserDemo {
 
 	@Override
 	public String toString() {
-		return "UserDemo [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone
-				+ ", pswd=" + pswd + ", email=" + email + ", isVerified=" + isVerified + ", createdAt=" + createdAt
+		return "UserDemo [userId=" + userId + ", name=" + name + ", phone=" + phoneNumber
+				+ ", pswd=" + password + ", email=" + email + ", isVerified=" + isVerified + ", createdAt=" + createdAt
 				+ "]";
 	}
-
+//	 lastName=" + lastName + ",
 }

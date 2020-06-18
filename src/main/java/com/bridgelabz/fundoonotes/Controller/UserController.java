@@ -1,9 +1,9 @@
 package com.bridgelabz.fundoonotes.Controller;
 
-
 import java.util.List;
 
 import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.bridgelabz.fundoonotes.DTO.LoginDetails;
 import com.bridgelabz.fundoonotes.DTO.UpdatePassword;
 import com.bridgelabz.fundoonotes.DTO.UserDto;
@@ -27,20 +29,23 @@ import com.bridgelabz.fundoonotes.Response.Response;
 import com.bridgelabz.fundoonotes.Response.UserAuntication;
 import com.bridgelabz.fundoonotes.Sevice.UserService;
 import com.bridgelabz.fundoonotes.utility.JwtGenerator;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @Slf4j
 @CrossOrigin("*")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	private  JwtGenerator generate;
+	private JwtGenerator generate;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -49,13 +54,13 @@ public class UserController {
 
 	/*
 	 * API to register new user
-	 */	
-	@PostMapping(value = "/users/register")
+	 */
+	@PostMapping(value = "/register")
 	@ApiOperation(value = "Api to register user", response = Response.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "registration successfull"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public ResponseEntity<Response> registration(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) throws Exception  {
-
+	public ResponseEntity<Response> registration(@Valid @RequestBody UserDto userDto, BindingResult bindingResult)
+			throws Exception {
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -63,26 +68,24 @@ public class UserController {
 		} else {
 			UserDemo user = userService.registration(userDto);
 			return user != null
-					? ResponseEntity.status(HttpStatus.CREATED)
-							.body(new Response("registration successfull"))
-					: ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-							.body(new Response("user already exist"));
+					? ResponseEntity.status(HttpStatus.CREATED).body(new Response("registration successfull"))
+					: ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Response("user already exist"));
 		}
 	}
 
 	/*
 	 * Api for user authentication
 	 */
-	@PostMapping("/users/login")
+	@PostMapping("/login")
 	@ApiOperation(value = "Api for Login", response = Response.class)
-		@CachePut(key = "#token", value = "userId")
+	@CachePut(key = "#token", value = "userId")
 	public ResponseEntity<UserAuntication> login(@RequestBody LoginDetails loginDetails) throws Exception {
 
 		UserDemo userInformation = userService.login(loginDetails);
 		loginDetails.setPassword("******");
 		if (userInformation != null) {
 			String token = generate.jwtToken(userInformation.getUserId());
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new UserAuntication(token,loginDetails));
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new UserAuntication(token, loginDetails));
 		} else {
 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -93,7 +96,7 @@ public class UserController {
 	/*
 	 * API to verify the user
 	 */
-	@GetMapping("/users/verify/{token}")
+	@GetMapping("/verify/{token}")
 	public ResponseEntity<Response> userVerification(@PathVariable("token") String token) throws Throwable {
 		System.out.println("token for verification" + token);
 		boolean update = userService.verify(token);
@@ -107,7 +110,7 @@ public class UserController {
 	@ApiOperation(value = "Api for forgotpassword", response = Response.class)
 	@PostMapping("users/forgotpassword")
 	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) throws Exception {
-		
+
 		log.info("Email :" + email);
 
 		boolean result = userService.isUserAvailable(email);
@@ -118,7 +121,7 @@ public class UserController {
 	/*
 	 * API to update password
 	 */
-	
+
 	@PutMapping("users/updatepassword/{token}")
 	@ApiOperation(value = "Api for update password", response = Response.class)
 	public ResponseEntity<Response> updatePassword(@Valid @PathVariable("token") String token,
@@ -129,16 +132,16 @@ public class UserController {
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage()));
-		} 
-			UserDemo userInfo = userService.updatePassword(token, pswd);
-			userInfo.setPswd("*******");
-			
-			return userInfo != null
-					? ResponseEntity.status(HttpStatus.OK)
-							.body(new Response("Password is Update Successfully"))
-					: ResponseEntity.status(HttpStatus.NOT_MODIFIED)
-			 .body(new Response("Password and Confirm Password doesn't matched"));
-	}					
+		}
+		UserDemo userInfo = userService.updatePassword(token, pswd);
+		userInfo.setPassword("*******");
+
+		return userInfo != null
+				? ResponseEntity.status(HttpStatus.OK).body(new Response("Password is Update Successfully"))
+				: ResponseEntity.status(HttpStatus.NOT_MODIFIED)
+						.body(new Response("Password and Confirm Password doesn't matched"));
+	}
+
 	/*
 	 * API to get User list
 	 * 

@@ -13,7 +13,7 @@ public interface UserRepository extends CrudRepository<UserDemo, Long> {
 
 	UserDemo findFirstByOrderByUserIdDesc();
 
-	Optional<UserDemo> findOneByUserIdAndPswd(long userId, Object pswd);
+	Optional<UserDemo> findOneByUserIdAndPassword(long userId, Object password);
 
 	Optional<UserDemo> findOneByEmail(String email);
 
