@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,8 +20,9 @@ import com.bridgelabz.fundoonotes.Response.Response;
 import com.bridgelabz.fundoonotes.Sevice.ProfilePicService;
 
 import io.swagger.annotations.ApiOperation;
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/profile")
 public class ProfilePicController {
 
 	@Autowired
@@ -38,10 +40,10 @@ public class ProfilePicController {
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("something went Wrong "));
 	}
 	/* Api to update a profice pic */
-	@PutMapping("/updateprofilepic")
+	@PutMapping("/deleteprofilepic")
 	@ApiOperation(value = "Api to update profile pic of User for Fundoonotes", response = Response.class)
-	public ResponseEntity<Response> updateProfile(@ModelAttribute MultipartFile file , @RequestHeader("token") String token){
-		Profile profile = profilePicService.updateObejctInS3(file, file.getOriginalFilename(), file.getContentType(),
+	public ResponseEntity<Response> DeleteProfile(@ModelAttribute MultipartFile file , @RequestHeader("token") String token){
+		Profile profile = profilePicService.DeleteObejctInS3(file, file.getOriginalFilename(), file.getContentType(),
 				token);
 		return profile.getUserLabel() != null
 				? ResponseEntity.status(HttpStatus.OK).body(new Response("profile updated succussefully"))

@@ -4,16 +4,22 @@ package com.bridgelabz.fundoonotes.ServiceImplementation;
 import java.time.LocalDateTime;
 
 
+
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+
+import javax.transaction.Transactional;
 
 import org.hibernate.annotations.common.util.impl.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 
 import com.bridgelabz.fundoonotes.DTO.NoteDto;
 import com.bridgelabz.fundoonotes.DTO.ReminderDto;
@@ -49,13 +55,14 @@ public class NoteServiceImpl implements NoteService {
 	ElasticSearchService elasticSearchService;
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
+
 	
 
 	@Override
 	public Note createNote(NoteDto noteDto, String token) {
 
-		long userId = getRedisCacheId(token);
-		// long id = jwtGenerator.parseJWT(token);
+//		long userId = getRedisCacheId(token);
+		 long userId = jwtGenerator.parseJWT(token);
 	//	log.info("Id is :" + userId + " ,Description :" + noteDto.getDescription());
 
 		Optional<UserDemo> user = userRepository.findById(userId);
@@ -126,16 +133,35 @@ public boolean isExist(long noteId, String token) {
 	return false;
 }
 */
+//@Override
+//public List<Note> getAllNotes(String token) {
+//	long userId = jwtGenerator.parseJWT(token);
+////	long userId = getRedisCacheId(token);
+//	Optional<UserDemo> isUserAvailable = userRepository.findById(userId);
+////	List<Note> getAllNotes = null;
+//	if (isUserAvailable.isPresent()) {
+//		List<Note> getAllNotes	= noteRepository.getAllNotes(userId);
+//	}
+//	return getAllNotes;
+//}
 @Override
-public List<Note> getAllNotes(String token) {
-	// long id = jwtGenerator.parseJWT(token);
-	long userId = getRedisCacheId(token);
-	Optional<UserDemo> isUserAvailable = userRepository.findById(userId);
-	List<Note> getAllNotes = null;
-	if (isUserAvailable.isPresent()) {
-		getAllNotes = noteRepository.getAllNotes(userId);
-	}
-	return getAllNotes;
+@Transactional
+public List<Note> getallnotes(){
+	List<Note> notes = new ArrayList<>();
+	noteRepository.findAll().forEach(notes::add);
+	return notes;
+}
+//api to get notes by id
+
+
+@Override
+@Transactional
+public Note getnoteById(String token) {
+	Long id = (long) jwtGenerator.parseJWT(token);
+	Note notes = noteRepository.findById(id)
+			.orElseThrow(() -> new  NoteIdNotFoundException("notes not found"));
+	return notes;
+
 }
 
 @Override
@@ -220,11 +246,12 @@ private long getRedisCacheId(String token) {
 	
 	//log.info("TOKEN :"+token);
 	String[] splitedToken = token.split("\\.");
-	String redisTokenKey = splitedToken[1] + splitedToken[2];
+Object redisTokenKey = null;
+	//	String redisTokenKey = splitedToken[1] + splitedToken[2];
 	if (redisTemplate.opsForValue().get(redisTokenKey) == null) {
 		long idForRedis = jwtGenerator.parseJWT(token);
 	//	log.info("idForRedis is :" + idForRedis);
-		redisTemplate.opsForValue().set(redisTokenKey, idForRedis, 3 * 60, TimeUnit.SECONDS);
+		redisTemplate.opsForValue().set((String) redisTokenKey, idForRedis, 3 * 60, TimeUnit.SECONDS);
 	}
 	return (Long) redisTemplate.opsForValue().get(redisTokenKey);
 }
@@ -262,5 +289,6 @@ public Note updateNoteDetails(long noteId, String token, NoteDto noteDto) throws
 }
 
 
+
+
 }
-	

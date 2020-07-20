@@ -1,5 +1,9 @@
 package com.bridgelabz.fundoonotes.customexceptions;
 
+import org.springframework.http.HttpStatus;
+
+import com.bridgelabz.fundoonotes.Model.Note;
+
 public class NoteIdNotFoundException  extends RuntimeException{
 
 	/**
@@ -10,4 +14,5 @@ public class NoteIdNotFoundException  extends RuntimeException{
 	super(message);
 
 }
+	
 }

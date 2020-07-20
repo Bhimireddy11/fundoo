@@ -64,9 +64,10 @@ public class UserController {
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage(), 0));
 		} else {
 			UserDemo user = userService.registration(userDto);
+			
 			return user != null
 					? ResponseEntity.status(HttpStatus.CREATED).body(new Response("registration successfull"))
 					: ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Response("user already exist"));
@@ -78,7 +79,7 @@ public class UserController {
 	 */
 	@PostMapping("/login")
 	@ApiOperation(value = "Api for Login", response = Response.class)
-	@CachePut(key = "#token", value = "userId")
+//	@CachePut(key = "#token", value = "userId")
 	public ResponseEntity<UserAuntication> login(@RequestBody LoginDetails loginDetails) throws Exception {
 
 		UserDemo userInformation = userService.login(loginDetails);
@@ -108,14 +109,14 @@ public class UserController {
 	 * API for forgot password
 	 */
 	@ApiOperation(value = "Api for forgotpassword", response = Response.class)
-	@PostMapping("users/forgotpassword")
-	public ResponseEntity<Response> forgotPassword(@RequestParam("email") String email) throws Exception {
+	@PostMapping("/users/forgotpassword")
+	public ResponseEntity<Response>	forgotPassword(@RequestParam( "email") String email) throws Exception {
 
-		log.info("Email :" + email);
+//		log.info("Email :" + email);
 
 		boolean result = userService.isUserAvailable(email);
-		return (result) ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("User Exist"))
-				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("User Doesn't Exist"));
+		return (result) ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Response("User Exist",200))
+				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("User Doesn't Exist",400));
 	}
 
 	/*
@@ -126,20 +127,20 @@ public class UserController {
 	@ApiOperation(value = "Api for update password", response = Response.class)
 	public ResponseEntity<Response> updatePassword(@Valid @PathVariable("token") String token,
 			@RequestBody UpdatePassword pswd, BindingResult bindingResult) throws Exception {
-		log.info("Token :" + token);
-		log.info("New Password :" + pswd.getNewpassword());
+//		log.info("Token :" + token);
+//		log.info("New Password :" + pswd.getNewpassword());
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+					.body(new Response(bindingResult.getAllErrors().get(0)));
 		}
 		UserDemo userInfo = userService.updatePassword(token, pswd);
 		userInfo.setPassword("*******");
 
 		return userInfo != null
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("Password is Update Successfully"))
+				? ResponseEntity.status(HttpStatus.OK).body(new Response("Password is Update Successfully",200))
 				: ResponseEntity.status(HttpStatus.NOT_MODIFIED)
-						.body(new Response("Password and Confirm Password doesn't matched"));
+						.body(new Response("Password and Confirm Password doesn't matched",500));
 	}
 
 	/*

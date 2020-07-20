@@ -18,7 +18,6 @@ public interface NoteService {
 
 	boolean isArchived(long id, String token);
 
-	List<Note> getAllNotes(String token);
 
 	boolean addColor(String color, String token, long id);
 
@@ -33,6 +32,14 @@ public interface NoteService {
 	List<Label> getAllLabelsOfOneNote(String token, long noteId);
 
 	Note updateNoteDetails(long noteId, String token, NoteDto noteDto) throws NoteIdNotFoundException;
+
+//	List<Note> getAllNotes(String token);
+
+	List<Note> getallnotes();
+
+	Note getnoteById(String token);
+
+	
 
 	
 

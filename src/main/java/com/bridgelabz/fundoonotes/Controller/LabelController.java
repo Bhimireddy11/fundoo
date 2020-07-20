@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,15 +24,16 @@ import com.bridgelabz.fundoonotes.Response.Response;
 import com.bridgelabz.fundoonotes.Sevice.LabelService;
 
 import io.swagger.annotations.ApiOperation;
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/labels")
 public class LabelController {
 	@Autowired
 	 LabelService labelService;
 	/*
 	 * API create labels for the note
 	 */
-	@PostMapping
+	@PostMapping("/createlabels")
 	@ApiOperation(value = "api to create label",response = Response.class)
 	public ResponseEntity<Response> createLabel(@RequestBody LabelDto labelDto, @RequestHeader("token") String token){
 
@@ -94,7 +96,7 @@ public class LabelController {
 	/*
 	 * API to get All Labels
 	 */
-	@GetMapping("labels")
+	@GetMapping("/labels/getalllabel")
 	@ApiOperation(value = "Api to get all labels", response = Response.class)
 	public ResponseEntity<Response> getAllLabels(@RequestHeader("token") String token) throws Exception {
 		List<Label> labelList = labelService.getAllLabels(token);
@@ -116,7 +118,7 @@ public class LabelController {
 	/*
 	 * API to add labels with notes
 	 */
-	@PostMapping("addlabels")
+	@PostMapping("labels/addlabels")
 	@ApiOperation(value = "Api to add existing label with note", response = Response.class)
 	public ResponseEntity<Response> addLabelToNotes(@RequestHeader("token") String token,
 			@RequestParam("noteId") long noteId, @RequestParam("labelid") long labelId) {

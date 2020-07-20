@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoonotes.ServiceImplementation;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -138,13 +139,10 @@ private Log log;
 
 					return userInfo.get();
 				} else {
-					String response = mailresponse.formMessage("http://localhost:8080/users/verify",
+					String response = mailresponse.formMessage("http://localhost:8081/users/verify",
 							generate.jwtToken(userInfo.get().getUserId()));
-
 					//log.info("Verification Link :" + response);
-
 					MailServiceProvider.sendEmail(loginDetails.getEmail(), "verification", response);
-
 					throw new UserNotVerifiedException("Invalid credentials");
 				}
 

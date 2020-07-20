@@ -1,17 +1,15 @@
 package com.bridgelabz.fundoonotes.Controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.validation.Valid;
 
+import org.elasticsearch.cli.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.bridgelabz.fundoonotes.DTO.NoteDto;
 import com.bridgelabz.fundoonotes.DTO.ReminderDto;
@@ -29,15 +27,13 @@ import com.bridgelabz.fundoonotes.Model.Label;
 import com.bridgelabz.fundoonotes.Model.Note;
 import com.bridgelabz.fundoonotes.Response.Response;
 import com.bridgelabz.fundoonotes.Sevice.NoteService;
-import com.bridgelabz.fundoonotes.customexceptions.NoteCreationException;
-import com.bridgelabz.fundoonotes.customexceptions.UserNotFoundException;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/notes")
 public class NoteController {
 
@@ -52,16 +48,16 @@ public class NoteController {
 	@PostMapping("/create")
 	@ApiOperation(value = "Api to create new note", response = Response.class)
 	public ResponseEntity<Response> createNote(@RequestBody NoteDto noteDto,
-			@RequestHeader( value = "token", required=false) String token, BindingResult bindingResult)
+			@RequestHeader( value = "token") String token, BindingResult bindingResult)
 			throws Exception {
 
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new Response(bindingResult.getAllErrors().get(0).getDefaultMessage()));
+					.body(new Response(bindingResult.getAllErrors()));
 		}
 		Note noteInfo = noteService.createNote(noteDto, token);
 		return noteInfo != null
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is created successfully"))
+				? ResponseEntity.status(HttpStatus.OK).body(new Response("Note is created successfully",200))
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Something went wrong"));
 	}
 	
@@ -116,14 +112,27 @@ public class NoteController {
 	 * API to get all the notes of one user
 	 */
 	// @JsonIgnore
-	@GetMapping("/notes/notes")
-	@ApiOperation(value = "Api to get notes list", response = Response.class)
-	public ResponseEntity<Response> notes(@RequestHeader("token") String token) {
-		// log.info("GET TOKEN :" + token);
-		List<Note> notes = noteService.getAllNotes(token);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes are"));
+//	@GetMapping("/notes/notes/{token}")
+//	@ApiOperation(value = "Api to get notes list", response = Response.class)
+//	public ResponseEntity<Response> notes(@PathVariable("token") String token)throws UserException {
+//		// log.info("GET TOKEN :" + token);
+//	List<Note> notes = noteService.getAllNotes(token);
+//		System.out.println("--------------------------------"+notes);
+//		return ResponseEntity.status(HttpStatus.OK).body(new Response("Notes are",200,notes));
+//	}
+	@GetMapping(value = "/notes")
+	public List<Note> getnotes() {
+		return noteService.getallnotes();
 	}
 
+	
+	
+	@GetMapping(value = "/note/{token}")
+	public ResponseEntity<Response> getnotesById(@PathVariable("token") String token) {
+	Note notes = noteService.getnoteById(token);
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("notes are",200,notes));
+	}
+	
 	/*
 	 * API to make note Archive
 	 */
@@ -151,7 +160,7 @@ public class NoteController {
 	/*
 	 * API to make note pinned
 	 */
-	@PutMapping("notes/pin")
+	@PutMapping("notes/pin/{noteId}")
 	@ApiOperation(value = "Api to make note pinned", response = Response.class)
 	public ResponseEntity<Response> pinned(@RequestParam("noteId") long noteId, @RequestHeader("token") String token) {
 		boolean result = noteService.pinnedNotes(noteId, token);
@@ -202,7 +211,7 @@ public class NoteController {
 	public ResponseEntity<Response> searchByTitle(@RequestParam("title") String title,
 			@RequestHeader("token") String token) {
 		List<Note> noteList = noteService.searchByTitle(title);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("List of Notes are"));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("List of Notes are",200,noteList));
 
 	}
 
@@ -214,6 +223,6 @@ public class NoteController {
 	public ResponseEntity<Response> getAllLabels(@RequestParam("noteId") long noteId,
 			@RequestHeader("token") String token) {
 		List<Label> noteList = noteService.getAllLabelsOfOneNote(token, noteId);
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Labels releated to current Note are"));
+		return ResponseEntity.status(HttpStatus.OK).body(new Response("Labels releated to current Note are",200,noteList));
 	}
 }

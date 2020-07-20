@@ -93,7 +93,7 @@ public class ProfilePicServiceImpl implements ProfilePicService {
 	}
 
 	@Override
-	public Profile updateObejctInS3(MultipartFile file, String originalFilename, String contentType, String token) {
+	public Profile DeleteObejctInS3(MultipartFile file, String originalFilename, String contentType, String token) {
 		try {
 			long userId = jwtGenerator.parseJWT(token);
 			Optional<UserDemo> user = userRepository.findById(userId);

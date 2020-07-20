@@ -11,9 +11,11 @@ public interface ProfilePicService {
 
 	Profile storeObjectInS3(MultipartFile file, String originalFilename, String contentType, String token);
 
-	Profile updateObejctInS3(MultipartFile file, String originalFilename, String contentType, String token);
+	Profile DeleteObejctInS3(MultipartFile file, String originalFilename, String contentType, String token);
 
 	S3Object getProfilePic(String token);
 
+	
+	
 
 }
